@@ -9,8 +9,8 @@ require 'Counterfeit.rb'
 
 world = World.new
 
-thieves = Array["Brian", "Tyler", "Logan", "Garrison", "Annabelle", "Nick",
-                "Emma", "Pia", "Yousuf"]
+thieves = Array["Bob", "Tom", "Luke", "George", "Allison", "Nick",
+                "Elena", "Penelope", "Shirly"]
 
 thieves.each{
   |name|
@@ -24,8 +24,8 @@ thieves.each{
   world.add_house house
 }
 
-counterfeits = Array["Sheetal", "Jesse", "David", "Michael",
-                "Bianca", "Brianna", "Alex", "Alec"]
+counterfeits = Array["Sarah", "John", "David", "Michael",
+                "Maddie", "Sam", "Alex", "Jeff"]
 
 counterfeits.each{
   |name|
