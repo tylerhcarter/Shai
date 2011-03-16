@@ -1,20 +1,20 @@
 class Person
 
-  attr_accessor :name, :money
+  attr_accessor :name, :money, :house
 
   @name = ""
   @key = ""
   @money
   @house
 
-  def initialize name, house
+  def initialize name, house, key
     @name = name
 
-    if !house.respond_to? :getKey
+    if !house.respond_to? :lock
       raise "Person::Initalize must recieve a house as a #2 parameter"
     end
 
-    @key = house.getKey
+    @key = key
     house.lock
 
     @house = house
@@ -37,12 +37,20 @@ class Person
     house.unlock @key
 
     # Deposit money
-    house.deposit_money 100
-    @money.subtract 100
+
+    # Find out how much you have
+    on_hand = @money.total
+
+    # Pick a random number to deposit
+    to_deposit = rand on_hand
+
+    house.deposit_money to_deposit
+    @money.subtract to_deposit
+    Events.deposited(@name, house.owner + "'s House", to_deposit)
 
     # Random chance he forgets to lock the house
     num = rand 100
-    if num < 10
+    if num > 1
       house.lock
     end
 

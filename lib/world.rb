@@ -24,31 +24,43 @@ class World
     }
   end
 
-  def run
+  def run times_to_run = 1
 
-    # Each person gets a chance to act on a house
-    @people.each{
-      |person|
+    times_ran = 1
+    while times_ran <= times_to_run
 
-      act person
-    }
+      # Shuffle the deck
+      @people = @people.sort_by {rand}
+      @houses = @houses.sort_by {rand}
 
-    # Each person now needs to grab any money from their house
-    @people.each{
-      |person|
+      # Have people act
+      run_actions
 
-      person.retrieve_money
-    }
-
-    @people.each{
-      |person|
-
-      puts person.name + " has " + person.money.total.to_s;
-    }
+      times_ran += 1
+    end
 
   end
 
+  def show_results
+    @people.each{
+      |person|
+
+      onHand = person.money.total
+      inHouse = person.house.money.total
+      total = onHand + inHouse
+      
+      puts person.name + " has $" + total.to_s + " ($" + onHand.to_s + " on hand, $" + inHouse.to_s + " in house)."
+    }
+  end
+
   private
+
+  # Allow each person to act
+  def run_actions
+    @people.each{ |person|
+      act person
+    }
+  end
 
   # Cause a person to act on a random house
   def act person

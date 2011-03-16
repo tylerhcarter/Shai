@@ -2,8 +2,8 @@ class Thief < Person
 
   @max_attempts = 100
   
-  def initialize name, house, attempts = 100
-    super name, house
+  def initialize name, house, key, attempts = 100
+    super name, house, key
     @max_attempts = attempts
   end
 
@@ -20,7 +20,9 @@ class Thief < Person
   def breakin house
     
     attempts = 0
-    while attempts < @max_attempts
+    while attempts <= @max_attempts
+
+      locked_status = house.isLocked?
 
       # Attempt to unlock
       unlocked = attempt_unlock house
@@ -29,10 +31,10 @@ class Thief < Person
       if unlocked == true
 
         # Steal money
-        steal_money house
+        moneyStole = steal_money house
 
         # Log a message
-        puts @name + " broke into " + house.owner + "'s house in " + attempts.to_s + " attempts."
+        Events.stole @name, house.owner, moneyStole, locked_status
         
         return true
       end
@@ -40,7 +42,7 @@ class Thief < Person
       attempts +=  1
     end
 
-    puts @name + " failed to break into " + house.owner + "'s house."
+    Events.fail_steal @name, house.owner
     return false
 
   end
@@ -68,7 +70,10 @@ class Thief < Person
     if !house.isLocked?
 
       # Withdraw all the money from the house if there is any
+      moneyStole = house.money.total
       @money.add house.withdraw_all if house.money.total > 0
+
+      return moneyStole
       
     end
     

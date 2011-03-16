@@ -7,12 +7,10 @@ class Bank
 
   def add amount
     @amount = @amount.to_i + amount.to_i
-    puts @owner + " deposited " + amount.to_s
   end
 
   def subtract amount
     @amount = @amount.to_i - amount.to_i
-    puts @owner + " withdrew " + amount.to_s
   end
 
   def total

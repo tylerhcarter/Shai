@@ -18,6 +18,12 @@ class Key
       raise "Key::Hash must recieve a key as a parameter"
     end
 
+    # Random chance that the key just works
+    num = rand 1000
+    if num == 1
+      return true
+    end
+
     if hash.getHash == @key
       return true
     else
