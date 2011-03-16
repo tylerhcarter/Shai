@@ -5,38 +5,45 @@ require 'World.rb'
 require 'Bank.rb'
 require 'Events.rb'
 require 'advanced_key.rb'
+require 'Counterfeit.rb'
 
 world = World.new
 
-# First Everyone gets a key
-BrianKey = Key.new rand 100
-TylerKey = Key.new rand 100
-LoganKey = Key.new rand 100
-GarrisonKey = Key.new rand 100
+thieves = Array["Brian", "Tyler", "Logan", "Garrison", "Annabelle", "Nick",
+                "Emma", "Pia", "Yousuf"]
 
-BrianHouse = House.new "Brian"
-TylerHouse = House.new "Tyler"
-LoganHouse = House.new "Logan"
-GarrisonHouse = House.new "Garrison"
+thieves.each{
+  |name|
 
-BrianHouse.setKey BrianKey
-TylerHouse.setKey TylerKey
-LoganHouse.setKey LoganKey
-GarrisonHouse.setKey GarrisonKey
+  key = Key.new rand 100
+  house = House.new name
+  house.setKey key
 
-Brian     = Thief.new "Brian", BrianHouse, BrianKey, 1000
-Tyler     = Thief.new "Tyler", TylerHouse, TylerKey, 1000
-Logan     = Thief.new "Logan", LoganHouse, LoganKey, 1000
-Garrison  = Thief.new "Garrison", GarrisonHouse, GarrisonKey, 1000
+  person = Thief.new name, house, key
+  world.add_person person
+  world.add_house house
+}
 
-# Add everyone to the world
-world.add_person Brian, Tyler, Logan, Garrison
-world.add_house BrianHouse, TylerHouse, LoganHouse, GarrisonHouse
+counterfeits = Array["Sheetal", "Jesse", "David", "Michael",
+                "Bianca", "Brianna", "Alex", "Alec"]
+
+counterfeits.each{
+  |name|
+
+  key = Key.new rand 100
+  house = House.new name
+  house.setKey key
+
+  person = Counterfeit.new name, house, key
+  world.add_person person
+  world.add_house house
+}
 
 Events.mute
 
-attempts_to_run = 1000
+attempts_to_run = 100
 world.run attempts_to_run
+puts "--------------------------------------------"
 world.show_results
 
 Events.print_stats

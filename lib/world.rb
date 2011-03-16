@@ -42,15 +42,22 @@ class World
   end
 
   def show_results
+    total_money = 0
+
     @people.each{
       |person|
 
       onHand = person.money.total
       inHouse = person.house.money.total
       total = onHand + inHouse
+      total_money += total
       
       puts person.name + " has $" + total.to_s + " ($" + onHand.to_s + " on hand, $" + inHouse.to_s + " in house)."
     }
+    puts "--------------------------------------------"
+    puts "Total Money in Economy: $" + total_money.to_s
+    puts "Total People in Economy: " + @people.size.to_s
+    puts "--------------------------------------------"
   end
 
   private

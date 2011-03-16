@@ -43,7 +43,7 @@ class Person
 
     # Pick a random number to deposit
     to_deposit = rand on_hand
-
+    
     house.deposit_money to_deposit
     @money.subtract to_deposit
     Events.deposited(@name, house.owner + "'s House", to_deposit)

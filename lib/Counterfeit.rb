@@ -1,4 +1,4 @@
-class Thief < Person
+class Counterfeit < Person
 
   @max_attempts = 100
   
@@ -31,10 +31,10 @@ class Thief < Person
       if unlocked == true
 
         # Steal money
-        moneyStole = steal_money house
+        moneyAdded = counterfeit_money house
 
         # Log a message
-        Events.stole @name, house.owner, moneyStole, locked_status
+        Events.counterfeit @name, house.owner, moneyAdded, locked_status
         
         return true
       end
@@ -64,16 +64,16 @@ class Thief < Person
 
   end
 
-  def steal_money house
+  def counterfeit_money house
 
     # Check if the house is locked
     if !house.isLocked?
 
-      # Withdraw all the money from the house if there is any
-      moneyStole = house.money.total
-      @money.add house.withdraw_all if house.money.total > 0
+      # Get a random number of money
+      money_added = rand 100
+      house.money.add money_added
 
-      return moneyStole
+      return money_added
       
     end
     
