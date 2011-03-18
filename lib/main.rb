@@ -35,4 +35,27 @@ world.create_all programmers, People::Programmer
 
 world.run MOVES
 
+printer = EventPrinter.new
+sorter = EventSorter.new
 
+events = Events.get_events
+
+while true
+  puts "Type a name to see actions:"
+  input = gets
+  input = input.strip
+
+  if input == "stats"
+    Events.print_stats
+  elsif input == "all"
+    printer.print_all events
+  else
+    filter = EventFilter.new
+    filter.add_player(input)
+
+    printer.print events, filter
+    puts "==========="
+  end
+  
+
+end
