@@ -1,5 +1,5 @@
-class Building
-
-  include Enterable
-
+module Building
+  class Building
+    include Enterable
+  end
 end

@@ -2,52 +2,54 @@ require 'Enterable'
 require 'Lockable'
 require 'Burnable'
 
-class House
-  include Enterable
-  include Lockable
-  include Burnable
-  
-  attr_accessor :owner, :money
-  @owner = "";
-  @money
-  
-  def initialize owner
-    @owner = owner;
-    @money = MoneyStorage.new @owner + "'s House", 0
-  end
+module Building
+  class House
+    include Enterable
+    include Lockable
+    include Burnable
 
-  def deposit_money amount
+    attr_accessor :owner, :money
+    @owner = "";
+    @money
 
-    if isLocked? == false
-      @money.add amount
-      return true
-    else
-      return false
+    def initialize owner
+      @owner = owner;
+      @money = MoneyStorage.new @owner + "'s House", 0
     end
-    
-  end
 
-  def withdraw_money amount
+    def deposit_money amount
 
-    if isLocked? == false
-      @money.subtract amount
-      return amount.to_i
-    else
-      return false
+      if isLocked? == false
+        @money.add amount
+        return true
+      else
+        return false
+      end
+
     end
-    
-  end
 
-  def withdraw_all
+    def withdraw_money amount
 
-    if isLocked? == false
-      total = @money.total.to_i
-      @money.subtract total
-      return total
-    else
-      return false
+      if isLocked? == false
+        @money.subtract amount
+        return amount.to_i
+      else
+        return false
+      end
+
     end
-    
-  end
 
+    def withdraw_all
+
+      if isLocked? == false
+        total = @money.total.to_i
+        @money.subtract total
+        return total
+      else
+        return false
+      end
+
+    end
+
+  end
 end

@@ -8,14 +8,14 @@ require 'key'
 class HouseTest < Test::Unit::TestCase
 
   def test_initial
-    house = House.new 'TestOwner'
+    house = Building::House.new 'TestOwner'
 
     assert_equal house.owner, 'TestOwner'
     assert_equal house.money.total, 0
   end
 
   def test_enter
-    house = House.new 'TestOwner'
+    house = Building::House.new 'TestOwner'
     person = MockPerson.new
     person_two = MockPerson.new
 
@@ -33,7 +33,7 @@ class HouseTest < Test::Unit::TestCase
   end
 
   def test_lock
-    house = House.new 'TestOwner'
+    house = Building::House.new 'TestOwner'
     key = Key.new 0
 
     # House starts unlocked

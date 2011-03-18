@@ -10,7 +10,7 @@ class World
 
   def create name, type
     key = Key.new rand 100
-    house = House.new name
+    house = Building::House.new name
     house.setKey key
 
     person = type.new name, house, key
