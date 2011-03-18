@@ -44,12 +44,30 @@ class Events
     printer.print @@events, filter
   end
 
-  def self.get_events
-    return @@events
+  def self.get_events filter = 0
+    if filter == 0
+      return @@events
+    else
+      sorter = EventSorter.new
+      return sorter.sort @@events, filter
+    end
   end
 
   def self.print_stats
     
+    # Sort Robberies
+    filter = EventFilter.new
+    filter.add_action "robbery"
+    robberies = get_events filter
+
+    total_robbed = 0
+    robberies.each{
+      |event|
+      total_robbed += event.amount
+    }
+
+    puts "Amount Robbed: $" + total_robbed.to_s
+
   end
   
 end
