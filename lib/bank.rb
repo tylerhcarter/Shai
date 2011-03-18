@@ -1,20 +1,20 @@
-class Bank
-  @amount = 0
-  def initialize owner, amount = 0
-    @amount = amount
-    @owner = owner
+class Bank < Building
+
+  @money
+
+  def initialize
+    @money = MoneyStorage.new "World", 0
   end
 
-  def add amount
-    @amount = @amount.to_i + amount.to_i
-  end
+  def deposit amount, account
 
-  def subtract amount
-    @amount = @amount.to_i - amount.to_i
+    @money.add amount
+    Events.deposited(account, "Bank", amount)
+
   end
 
   def total
-    return @amount
+    return @money.total
   end
 
 end

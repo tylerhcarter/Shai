@@ -8,6 +8,23 @@ class World
     @houses = Array.new
   end
 
+  def create name, type
+    key = Key.new rand 100
+    house = House.new name
+    house.setKey key
+
+    person = type.new name, house, key
+    add_person person
+    add_house house
+  end
+
+  def create_all names, type
+    names.each{
+      |name|
+      create name, type
+    }
+  end
+
   # Add a person to the world
   def add_person *people
     people.each{
@@ -56,6 +73,7 @@ class World
     }
     puts "--------------------------------------------"
     puts "Total Money in Economy: $" + total_money.to_s
+    puts "Money Started in Economy: $" + (@people.size * PERSON_START_MONEY).to_s
     puts "Total People in Economy: " + @people.size.to_s
     puts "--------------------------------------------"
   end

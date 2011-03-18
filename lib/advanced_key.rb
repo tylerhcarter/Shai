@@ -1,4 +1,8 @@
+require 'key'
+
 class AdvancedKey < Key
+
+  @seed = ADVANCED_KEY_SEED
   
   # Determines if the key is valid
   def valid? hash

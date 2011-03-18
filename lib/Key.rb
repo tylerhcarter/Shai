@@ -1,9 +1,12 @@
+require 'settings'
+
 class Key
 
   @key = ""
+  @seed = REGULAR_KEY_SEED
 
   def initialize hash
-    num = rand 100
+    num = rand @seed
     @key = hash.to_s + num.to_s
   end
 
@@ -19,7 +22,7 @@ class Key
     end
 
     # Random chance that the key just works
-    num = rand 1000
+    num = rand REGULAR_KEY_FAILURE_CHANCE
     if num == 1
       return true
     end

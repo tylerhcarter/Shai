@@ -1,82 +1,92 @@
-class Counterfeit < Person
+require 'settings'
+require 'person'
 
-  @max_attempts = 100
-  
-  def initialize name, house, key, attempts = 100
-    super name, house, key
-    @max_attempts = attempts
-  end
+module People
+  class Counterfeit < Person
 
-  def act house
+    @max_attempts = 10
 
-    # First, act like a regular person
-    super house
+    def initialize name, house, key, attempts = 100
+      super name, house, key
+      @max_attempts = attempts
+    end
 
-    # Try to break in if it isn't your house
-    breakin house if !is_mine? house
-    
-  end
+    def act house
 
-  def breakin house
-    
-    attempts = 0
-    while attempts <= @max_attempts
+      # First, act like a regular person
+      super house
 
-      locked_status = house.isLocked?
+      # Check if it is a house
+      if house.respond_to? :unlock
 
-      # Attempt to unlock
-      unlocked = attempt_unlock house
-
-      # Check for success
-      if unlocked == true
-
-        # Steal money
-        moneyAdded = counterfeit_money house
-
-        # Log a message
-        Events.counterfeit @name, house.owner, moneyAdded, locked_status
+        # Try to break in if it isn't your house
+        breakin house if !is_mine? house
         
-        return true
       end
 
-      attempts +=  1
     end
 
-    Events.fail_breakin @name, house.owner
-    return false
+    def breakin house
 
-  end
+      attempts = 0
+      while attempts <= @max_attempts
 
-  private
+        locked_status = house.isLocked?
 
-  # Attempts to break in by creating a key
-  def attempt_unlock house
+        # Attempt to unlock
+        unlocked = attempt_unlock house
 
-    # Create a new key
-    key = Key.new( rand(100) )
+        # Check for success
+        if unlocked == true
 
-    # Attempt to break in
-    if house.unlock key
-      return true
-    else
+          # Steal money
+          moneyAdded = counterfeit_money house
+
+          # Log a message
+          Events.counterfeit @name, house.owner, moneyAdded, locked_status
+
+          return true
+        end
+
+        attempts +=  1
+      end
+
+      Events.fail_breakin @name, house.owner
       return false
+
+    end
+
+    private
+
+    # Attempts to break in by creating a key
+    def attempt_unlock house
+
+      # Create a new key
+      key = Key.new( rand(COUNTERFEIT_BREAKIN_KEY_SEED) )
+
+      # Attempt to break in
+      if house.unlock key
+        return true
+      else
+        return false
+      end
+
+    end
+
+    def counterfeit_money house
+
+      # Check if the house is locked
+      if !house.isLocked?
+
+        # Get a random number of money
+        money_added = rand COUNTERFEIT_MAX_CREATE
+        house.money.add money_added
+
+        return money_added
+
+      end
+
     end
 
   end
-
-  def counterfeit_money house
-
-    # Check if the house is locked
-    if !house.isLocked?
-
-      # Get a random number of money
-      money_added = rand 100
-      house.money.add money_added
-
-      return money_added
-      
-    end
-    
-  end
-
 end

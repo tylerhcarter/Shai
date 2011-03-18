@@ -1,49 +1,51 @@
-require 'House.rb'
-require 'Person.rb'
-require 'Thief.rb'
-require 'World.rb'
-require 'Bank.rb'
-require 'Events.rb'
-require 'advanced_key.rb'
-require 'Counterfeit.rb'
+require 'settings'
+require 'world'
+require 'events'
+require 'money_storage'
+require 'record'
+require 'key'
+require 'advanced_key'
+require 'person'
+require 'thief'
+require 'counterfeit'
+require 'worker'
+require 'arsonist'
+require 'programmer'
+require 'enterable'
+require 'building'
+require 'burnable'
+require 'lockable'
+require 'house'
+require 'bank'
 
 world = World.new
 
-thieves = Array["Bob", "Tom", "Luke", "George", "Allison", "Nick",
-                "Elena", "Penelope", "Shirly"]
+#workers = Array["Sarah", "John", "David", "Michael"]
+#thieves = Array["Tyler", "Logan", "Garrison", "Miichael", "Pia", "Soren"]
+#counterfeits = Array["Maddie", "Sam", "Alex", "Jeff"]
+#arsonists = Array["Ned"]
+#programmers = Array["Dennis"]
 
-thieves.each{
-  |name|
+workers = Array["Bill", "Steve"]
+thieves = Array["Tristan", "Garrison", "Nick"]
+counterfeits = Array["Colin", "Soren"]
+programmers = Array["Tyler"]
 
-  key = Key.new rand 100
-  house = House.new name
-  house.setKey key
+world.create_all workers, People::Worker
+world.create_all thieves, People::Thief
+world.create_all counterfeits, People::Counterfeit
+#world.create_all arsonists, People::Arsonist
+world.create_all programmers, People::Programmer
 
-  person = Thief.new name, house, key
-  world.add_person person
-  world.add_house house
-}
+#bank = Bank.new
+#world.add_house bank
 
-counterfeits = Array["Sarah", "John", "David", "Michael",
-                "Maddie", "Sam", "Alex", "Jeff"]
+Events.mute if !PRINT_ACTIONS
 
-counterfeits.each{
-  |name|
-
-  key = Key.new rand 100
-  house = House.new name
-  house.setKey key
-
-  person = Counterfeit.new name, house, key
-  world.add_person person
-  world.add_house house
-}
-
-Events.mute
-
-attempts_to_run = 100
-world.run attempts_to_run
+world.run MOVES
 puts "--------------------------------------------"
-world.show_results
+world.show_results if PRINT_SCOREBOARD
+
+#puts bank.total
 
 Events.print_stats

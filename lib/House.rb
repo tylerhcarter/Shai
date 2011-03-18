@@ -1,7 +1,11 @@
-require 'Lockable.rb'
+require 'Enterable'
+require 'Lockable'
+require 'Burnable'
 
 class House
+  include Enterable
   include Lockable
+  include Burnable
   
   attr_accessor :owner, :money
   @owner = "";
@@ -9,7 +13,7 @@ class House
   
   def initialize owner
     @owner = owner;
-    @money = Bank.new @owner + "'s House", 0
+    @money = MoneyStorage.new @owner + "'s House", 0
   end
 
   def deposit_money amount

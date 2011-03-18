@@ -3,7 +3,6 @@ require 'Key.rb'
 module Lockable
 
   @locked = false
-  
   @key = ""
 
   def lock
@@ -28,6 +27,7 @@ module Lockable
   end
 
   def isLocked?
+    @locked = false if @locked.nil?
     return @locked
   end
 
@@ -36,6 +36,7 @@ module Lockable
       return false
     else
       @key = key
+      return true
     end
   end
 
