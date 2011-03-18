@@ -15,7 +15,7 @@ module People
 
       record.to = @name
       record.from = "world"
-      Events.paid(record)
+      Events.pay(record)
 
     end
   end

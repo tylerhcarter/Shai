@@ -51,7 +51,7 @@ module People
         attempts +=  1
       end
 
-      Events.fail_breakin @name, house.owner
+      Events.failed_robbery @name, house.owner
       return false
 
     end

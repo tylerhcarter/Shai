@@ -11,27 +11,27 @@ class Events
     @@events.push event
   end
 
-  def self.paid record
+  def self.pay record
     record PayEvent.new "world", record.to, record.amount
   end
 
-  def self.deposited from, to, amount
+  def self.deposit from, to, amount
     record DepositEvent.new from, to, amount
   end
 
-  def self.withdrew to, from, amount
+  def self.withdraw to, from, amount
     record WithdrawEvent.new from, to, amount
   end
 
-  def self.stole to, from, amount, previous_status
-    record RobberyEvent.new from, to, amount
+  def self.robbery thief, victim, amount, previous_status
+    record RobberyEvent.new thief, victim, amount
   end
 
-  def self.counterfeit to, from, amount, previous_status
-    record CounterfeitEvent.new from, to, amount
+  def self.counterfeit thief, victim, amount, previous_status
+    record CounterfeitEvent.new thief, victim, amount
   end
 
-  def self.fail_breakin thief, victim
+  def self.failed_robbery thief, victim
     record FailedRobberyEvent.new thief, victim
   end
 
@@ -54,14 +54,13 @@ class Events
   end
 
   def self.print_stats
-    
-    
-
+    print_robbery_count
+    print_counterfeit_count
   end
 
   private
 
-  def print_robbery_count
+  def self.print_robbery_count
     # Sort Robberies
     filter = EventFilter.new
     filter.add_action "robbery"
@@ -93,5 +92,23 @@ class Events
     puts "Total Robberies: " + robberies.size.to_s + " (Empty: " + empty_robberies.to_s + ", " + "Low: " + low_robberies.to_s + ", " + "Medium: " + med_robberies.to_s + ", " + "High: " + high_robberies.to_s + ")"
     puts "Amount Robbed: $" + total_robbed.to_s
   end
-  
+
+  def self.print_counterfeit_count
+
+    # Sort Counterfeits
+    filter = EventFilter.new
+    filter.add_action "counterfeit"
+    counterfeits = get_events filter
+
+    total = 0
+    counterfeits.each{
+      |event|
+
+      total += event.amount
+    }
+
+    puts "Total Counterfeited: " + total.to_s
+
+  end
+
 end

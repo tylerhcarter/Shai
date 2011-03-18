@@ -37,10 +37,10 @@ module People
         if unlocked == true
 
           # Steal money
-          moneyStole = steal_money house
+          money_stole = steal_money house
 
           # Log a message
-          Events.stole @name, house.owner, moneyStole, locked_status
+          Events.robbery @name, house.owner, money_stole, locked_status
 
           return true
         end
@@ -48,7 +48,7 @@ module People
         attempts +=  1
       end
 
-      Events.fail_breakin @name, house.owner + "'s House"
+      Events.failed_robbery @name, house.owner + "'s House"
       return false
 
     end
@@ -76,10 +76,10 @@ module People
       if !house.isLocked?
 
         # Withdraw all the money from the house if there is any
-        moneyStole = house.money.total
+        money_stole = house.money.total
         @money.add house.withdraw_all if house.money.total > 0
 
-        return moneyStole
+        return money_stole
 
       end
 

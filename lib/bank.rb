@@ -1,3 +1,7 @@
+require 'building'
+require 'money_storage'
+require 'events'
+
 module Building
   class Bank < Building
 
@@ -7,11 +11,8 @@ module Building
       @money = MoneyStorage.new "World", 0
     end
 
-    def deposit amount, account
-
+    def deposit amount
       @money.add amount
-      Events.deposited(account, "Bank", amount)
-
     end
 
     def total

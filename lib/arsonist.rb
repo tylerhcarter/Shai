@@ -10,7 +10,7 @@ module People
     def act house
       if (rand ARSONIST_BURN_CHANCE) == 1
         house.burn
-        Events.burn @name, house.owner
+        Events.burn @name, (house.owner or 'world')
       end
     end
   end

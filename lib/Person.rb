@@ -65,7 +65,7 @@ module People
 
         building.deposit_money to_deposit
         @money.subtract to_deposit
-        Events.deposited(@name, building.owner + "'s House", to_deposit)
+        Events.deposit(@name, building.owner + "'s House", to_deposit)
 
         # Random chance he forgets to lock the house
         num = rand PERSON_LOCK_CHANCE
@@ -83,8 +83,9 @@ module People
         # Pick a random number to deposit
         to_deposit = rand(on_hand + 1)
 
-        building.deposit to_deposit, @name
+        building.deposit to_deposit
         @money.subtract to_deposit
+        Events.deposit(@name, "Bank", to_deposit)
 
       end
 

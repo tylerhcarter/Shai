@@ -1,11 +1,21 @@
+require 'settings'
+require 'bank'
+require 'house'
+require 'world'
+
 class World
 
   @people
   @houses
+  @bank
 
   def initialize
     @people = Array.new
     @houses = Array.new
+
+    # World starts with a bank
+    @bank = Building::Bank.new
+    add_house @bank
   end
 
   def create name, type
@@ -71,6 +81,7 @@ class World
       
       puts person.name + " has $" + total.to_s + " ($" + onHand.to_s + " on hand, $" + inHouse.to_s + " in house)."
     }
+    puts "Bank has $" + @bank.total.to_s
     puts "--------------------------------------------"
     puts "Total Money in Economy: $" + total_money.to_s
     puts "Money Started in Economy: $" + (@people.size * PERSON_START_MONEY).to_s

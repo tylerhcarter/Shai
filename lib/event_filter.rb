@@ -1,4 +1,9 @@
+require 'thesaurus'
+
 class EventFilter
+
+  # Add similar words
+  @words
 
   # Limiting properties
   @action
@@ -9,11 +14,15 @@ class EventFilter
     @action = Array.new
     @player = Array.new
     @target = Array.new
+
+    @words = Thesaurus.new
+    @words.add_word "robbery", "robbed", "rob", "stole"
+    @words.add_word "pay", "paid"
   end
 
   def add_action *values
     values.each{|value|
-      @action.push value
+      @action.push @words.get_base_word(value)
     }
   end
 
