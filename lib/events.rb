@@ -55,19 +55,43 @@ class Events
 
   def self.print_stats
     
+    
+
+  end
+
+  private
+
+  def print_robbery_count
     # Sort Robberies
     filter = EventFilter.new
     filter.add_action "robbery"
     robberies = get_events filter
 
     total_robbed = 0
+    empty_robberies = 0
+    low_robberies = 0
+    med_robberies = 0
+    high_robberies = 0
+
     robberies.each{
       |event|
-      total_robbed += event.amount
+      amount = event.amount
+
+      if amount == 0
+        empty_robberies += 1
+      elsif amount < 50
+        low_robberies += 1
+      elsif amount < 200
+        med_robberies += 1
+      else
+        high_robberies += 1
+      end
+
+      total_robbed += amount
     }
 
+    puts "Total Robberies: " + robberies.size.to_s + " (Empty: " + empty_robberies.to_s + ", " + "Low: " + low_robberies.to_s + ", " + "Medium: " + med_robberies.to_s + ", " + "High: " + high_robberies.to_s + ")"
     puts "Amount Robbed: $" + total_robbed.to_s
-
   end
   
 end
