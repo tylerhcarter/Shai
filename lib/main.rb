@@ -17,16 +17,13 @@ require 'burnable'
 require 'lockable'
 require 'house'
 require 'bank'
+require 'event_sorter'
+require 'event_filter'
+require 'event_printer'
 
 world = World.new
 
-#workers = Array["Sarah", "John", "David", "Michael"]
-#thieves = Array["Tyler", "Logan", "Garrison", "Miichael", "Pia", "Soren"]
-#counterfeits = Array["Maddie", "Sam", "Alex", "Jeff"]
-#arsonists = Array["Ned"]
-#programmers = Array["Dennis"]
-
-workers = Array["Bill", "Steve"]
+workers = Array["Bill", "Steve", "Bob"]
 thieves = Array["Tristan", "Garrison", "Nick"]
 counterfeits = Array["Colin", "Soren"]
 programmers = Array["Tyler"]
@@ -34,18 +31,8 @@ programmers = Array["Tyler"]
 world.create_all workers, People::Worker
 world.create_all thieves, People::Thief
 world.create_all counterfeits, People::Counterfeit
-#world.create_all arsonists, People::Arsonist
 world.create_all programmers, People::Programmer
 
-#bank = Bank.new
-#world.add_house bank
-
-Events.mute if !PRINT_ACTIONS
-
 world.run MOVES
-puts "--------------------------------------------"
-world.show_results if PRINT_SCOREBOARD
 
-#puts bank.total
 
-Events.print_stats
