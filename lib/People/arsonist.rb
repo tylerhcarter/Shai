@@ -1,4 +1,4 @@
-require 'person'
+require 'People/person'
 require 'events'
 
 module People

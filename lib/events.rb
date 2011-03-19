@@ -1,6 +1,6 @@
-require 'event_types'
-require 'event_printer'
-require 'event_filter'
+require 'Events/event_types'
+require 'Events/event_printer'
+require 'Events/event_filter'
 
 # Single module to handle saying all events
 class Events

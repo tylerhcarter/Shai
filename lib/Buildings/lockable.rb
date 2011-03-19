@@ -1,4 +1,4 @@
-require 'Key.rb'
+require 'Items/key'
 
 module Lockable
 

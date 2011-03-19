@@ -21,7 +21,7 @@ PERSON_LOCK_CHANCE = 50
 THIEF_MAX_ATTEMPTS = 100
 
 # Chance for Arsonist to successfully burn a house
-ARSONIST_BURN_CHANCE = 100
+ARSONIST_BURN_CHANCE = 50
 
 # MONEY SETTINGS
 

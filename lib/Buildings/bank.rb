@@ -1,4 +1,4 @@
-require 'building'
+require 'Buildings/building'
 require 'money_storage'
 require 'events'
 

@@ -1,6 +1,6 @@
-require 'Enterable'
-require 'Lockable'
-require 'Burnable'
+require 'Buildings/enterable'
+require 'Buildings/lockable'
+require 'Buildings/burnable'
 
 module Building
   class House

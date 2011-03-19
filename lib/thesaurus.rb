@@ -30,6 +30,16 @@ class Thesaurus
     return add_word word
   end
 
+  def has_word? word
+     @words.each{
+      |obj|
+      if obj.base_word == word
+        return true
+      end
+    }
+    return false
+  end
+
   def get_base_word synonym
     @words.each{
       |base_word|
@@ -37,6 +47,7 @@ class Thesaurus
         return base_word.base_word
       end
     }
+    return false
   end
 
   class Word

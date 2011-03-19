@@ -1,25 +1,29 @@
 require 'settings'
 require 'world'
+require 'commands'
 require 'events'
 require 'money_storage'
 require 'record'
-require 'key'
-require 'advanced_key'
-require 'person'
-require 'thief'
-require 'counterfeit'
-require 'worker'
-require 'arsonist'
-require 'programmer'
-require 'enterable'
-require 'building'
-require 'burnable'
-require 'lockable'
-require 'house'
-require 'bank'
-require 'event_sorter'
-require 'event_filter'
-require 'event_printer'
+require 'Items/key'
+require 'Items/advanced_key'
+require 'People/person'
+require 'People/player'
+require 'People/thief'
+require 'People/counterfeit'
+require 'People/worker'
+require 'People/arsonist'
+require 'People/programmer'
+require 'Buildings/enterable'
+require 'Buildings/building'
+require 'Buildings/burnable'
+require 'Buildings/lockable'
+require 'Buildings/house'
+require 'Buildings/bank'
+require 'Events/event_sorter'
+require 'Events/event_filter'
+require 'Events/event_printer'
+
+Commands.setup
 
 world = World.new
 
@@ -32,6 +36,7 @@ world.create_all workers, People::Worker
 world.create_all thieves, People::Thief
 world.create_all counterfeits, People::Counterfeit
 world.create_all programmers, People::Programmer
+world.create "Player", People::Player
 
 world.run MOVES
 
@@ -47,8 +52,6 @@ while true
     Events.print_stats
   elsif input == "total"
     world.show_results
-  elsif input == "bank"
-    puts "Bank earned: $" + bank.total.to_s
   elsif input == "all"
     printer.print_all events
   else

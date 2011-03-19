@@ -1,6 +1,6 @@
 require 'settings'
-require 'bank'
-require 'house'
+require 'Buildings/bank'
+require 'Buildings/house'
 require 'world'
 
 class World

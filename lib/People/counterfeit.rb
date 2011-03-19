@@ -1,5 +1,5 @@
 require 'settings'
-require 'person'
+require 'People/person'
 
 module People
   class Counterfeit < Person

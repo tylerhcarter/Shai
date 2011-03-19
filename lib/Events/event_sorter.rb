@@ -1,4 +1,4 @@
-require 'event_filter'
+require 'Events/event_filter'
 
 class EventSorter
 

@@ -1,4 +1,4 @@
-require 'key'
+require 'Items/key'
 
 class AdvancedKey < Key
 

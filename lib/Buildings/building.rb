@@ -1,5 +1,5 @@
-require 'enterable'
-require 'burnable'
+require 'Buildings/enterable'
+require 'Buildings/burnable'
 
 module Building
   class Building
